@@ -1,0 +1,209 @@
+paths:
+  /api/carts:
+    post:
+      summary: Crear un nuevo carrito
+      tags:
+        - Carts
+      description: Crea un nuevo carrito de compras.
+      responses:
+        '201':
+          description: Carrito creado con éxito.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmptyCart'
+
+  /api/carts/{cid}:
+    get:
+      summary: Obtener un carrito por ID
+      tags:
+        - Carts
+      description: Devuelve un carrito específico por su ID.
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID del carrito
+      responses:
+        '200':
+          description: Carrito encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+        '404':
+          description: Carrito no encontrado.
+    delete:
+      summary: Limpiar el contenido de un carrito
+      tags:
+        - Carts
+      description: Elimina todos los productos del carrito especificado por su ID.
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID del carrito
+      responses:
+        '204':
+          description: Contenido del carrito eliminado con éxito.
+        '404':
+          description: Carrito no encontrado.
+
+  /api/carts/{cid}/products/{pid}:
+    post:
+      summary: Agregar un producto a un carrito
+      description: Agrega un producto especificado por su ID a un carrito especificado por su ID.
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID del carrito
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID del producto
+      responses:
+        '200':
+          description: Producto agregado al carrito con éxito.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+        '404':
+          description: Carrito o producto no encontrado.
+    delete:
+      summary: Eliminar un producto de un carrito
+      tags:
+        - Carts
+      description: Elimina un producto específico de un carrito.
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID del carrito
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID del producto
+      responses:
+        '204':
+          description: Producto eliminado del carrito con éxito.
+        '404':
+          description: Carrito o producto no encontrado.
+    put:
+      summary: Modificar la cantidad de un producto en un carrito
+      tags:
+        - Carts
+      description: Modifica la cantidad de un producto específico en un carrito.
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID del carrito
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID del producto
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantity:
+                  type: integer
+                  example: 3
+      responses:
+        '200':
+          description: Cantidad del producto actualizada con éxito.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+        '404':
+          description: Carrito o producto no encontrado.
+
+  /api/carts/{cid}/purchase:
+    post:
+      summary: Realizar la compra del contenido de un carrito
+      tags:
+        - Carts
+      description: Permite realizar el checkout del contenido de un carrito especificado por su ID.
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID del carrito
+      responses:
+        '200':
+          description: Redirigido al proceso de checkout.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Checkout iniciado con éxito."
+        '404':
+          description: Carrito no encontrado.
+
+components:
+  schemas:
+    Cart:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "612e3f51fcd8b8a1d0f7a677"
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              productId:
+                type: string
+                example: "612e3f51fcd8b8a1d0f7a672"
+              quantity:
+                type: integer
+                example: 2
+    EmptyCart:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "612e3f51fcd8b8a1d0f7a671"
+        products:
+          type: array
+          items:
+            type: object
+    CartProductInput:
+      type: object
+      properties:
+        productId:
+          type: string
+          example: "612e3f51fcd8b8a1d0f7a673"
+        quantity:
+          type: integer
+          example: 1

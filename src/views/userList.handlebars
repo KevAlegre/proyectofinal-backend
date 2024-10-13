@@ -1,0 +1,21 @@
+<div>
+    <button>
+        <a href="{{dashboardLink}}">Ir a inicio</a>
+    </button>
+    <h2>Administrador de usuarios</h2>
+    <section>
+        {{#each user}}
+            <div>
+                <h3>{{this.usuario}}</h3>
+                <p>Email: {{this.email}}</p>
+                <p>Rol: {{this.rol}}</p>
+                <button onclick="userHandler(`{{this.email}}`, event)" id="setUser">Cambiar rol a user</button>
+                <button onclick="userHandler(`{{this.email}}`, event)" id="setPremium">Cambiar rol a premium</button>
+                <button onclick="userHandler(`{{this.email}}`, event)" id="deleteUser">Eliminar usuario</button>
+            </div>
+        {{/each}}
+    </section>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/userHandler.js"></script>

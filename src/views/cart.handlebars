@@ -1,0 +1,22 @@
+<section>
+    <button>
+        <a href="{{dashboardLink}}">Ir a inicio</a>
+    </button>
+    <h1>Carrito</h1>
+    <section>
+        <button onclick="generateTicket(`{{email}}`)">Comprar</button>
+        {{#if cart.products.length}}
+            {{#each cart.products}}
+                <div class="product">
+                    <h3>{{this.product.title}} (code: <span id="code">{{this.product.code}}</span>)</h3>
+                    <h4>Categoría: {{this.product.category}}</h4>
+                    <p>{{this.product.description}}</p>
+                    <p class="price">Precio: ${{this.product.price}}</p>
+                </div>
+            {{/each}}
+        {{/if}}
+    </section>
+</section>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/generateTicket.js"></script>

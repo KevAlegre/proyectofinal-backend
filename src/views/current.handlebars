@@ -1,0 +1,32 @@
+<div>
+    <button>
+        <a href="{{dashboardLink}}">Ir a inicio</a>
+    </button>
+    <h2>¡Bienvenido {{user.first_name}} {{user.last_name}}!</h2>
+    <p>Rol: {{user.role}}</p>
+    <p>Email: {{user.email}}</p>
+    <p>Edad: {{user.age}}</p>
+    {{#if isNotPremium}}
+        <div>
+            <h3>¡Convertite en usuario Premium!</h3>
+            <form action="/api/users/{{userId}}/documents" method="POST" enctype="multipart/form-data">
+            <label for="document">Cargar identificación</label>
+            <input type="file" id="document" name="document"> <br>
+            <label for="document">Cargar comprobante de domicilio</label>
+            <input type="file" id="document" name="document"> <br>
+            <label for="document">Cargar comprobante de estado de cuenta</label>
+            <input type="file" id="document" name="document"> <br>
+            <button type="submit">Subir archivos</button>
+            </form>
+            <form action="/api/users/premium/{{userId}}" method="post">
+            <p>Una vez subidos los documentos, presione botón <strong>convertirme en premium</strong>, luego cerrar e iniciar sesión para aplicar los cambios</p>
+            <button type="submit">Convertirme en premium</button>
+            </form>
+        </div>
+    {{/if}}
+    <div>
+        <form action="/api/sessions/logout" method="POST">
+            <button type="submit">Cerrar sesión</button>
+        </form>
+    </div>
+</div>

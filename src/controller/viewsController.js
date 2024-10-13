@@ -4,7 +4,7 @@ import config from "../config/config.js";
 import { generateProducts } from "../utils.js";
 import { getUsersService } from "../services/userServices.js";
 
-export const redirectToLogin = () => {
+export const redirectToLogin = (req, res) => {
     res.redirect("/login");
 };
 

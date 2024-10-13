@@ -12,5 +12,6 @@ export default {
     github_client_secret: process.env.GITHUB_CLIENT_SECRET,
     persistence: process.env.PERSISTENCE,
     gmail_user: process.env.GMAIL_USER,
-    gmail_app_pass: process.env.GMAIL_APP_PASS
+    gmail_app_pass: process.env.GMAIL_APP_PASS,
+    railway_public_domain: process.env.RAILWAY_PUBLIC_DOMAIN
 };

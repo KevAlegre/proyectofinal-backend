@@ -4,6 +4,10 @@ import config from "../config/config.js";
 import { generateProducts } from "../utils.js";
 import { getUsersService } from "../services/userServices.js";
 
+export const redirectToLogin = () => {
+    res.redirect("/login");
+};
+
 export const renderLogin = (req, res) => {
     res.render("login");
 };

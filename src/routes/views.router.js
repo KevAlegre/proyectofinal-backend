@@ -1,9 +1,10 @@
 import { Router } from "express";
 import { isAuth, isNotAuth } from "../services/auth.js";
-import { renderAdminDashboard, renderPremiumDashboard,  renderLogin, renderRegister, renderUserDashboard, renderCart, renderProfile, renderMocks, recoverPassword, resetPassword, userList } from "../controller/viewsController.js";
+import { renderAdminDashboard, renderPremiumDashboard,  renderLogin, renderRegister, renderUserDashboard, renderCart, renderProfile, renderMocks, recoverPassword, resetPassword, userList, redirectToLogin } from "../controller/viewsController.js";
 
 const viewsRouter = Router();
 
+viewsRouter.get("/", redirectToLogin);
 viewsRouter.get("/login", isNotAuth, renderLogin);
 viewsRouter.get("/register", isNotAuth, renderRegister);
 viewsRouter.get("/products", isAuth, renderUserDashboard);

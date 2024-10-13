@@ -22,11 +22,11 @@ export const renderUserDashboard = async (req, res) => {
         const {limit, page, sort, query} = req.query;
         const products = await getProductsService(limit, page, sort, query);
         products.cart = cartId;
-        const profileLink = `http://localhost:${config.port}/current`;
-        const cartLink = `http://localhost:${config.port}/carts`
+        const profileLink = `http://${RAILWAY_PUBLIC_DOMAIN}:${config.port}/current`;
+        const cartLink = `http://${RAILWAY_PUBLIC_DOMAIN}:${config.port}/carts`
         const {prevPage, nextPage, hasPrevPage, hasNextPage} = products;
-        const prevLink = hasPrevPage ? `http://localhost:${config.port}/products?page=${prevPage}` : null;
-        const nextLink = hasNextPage ? `http://localhost:${config.port}/products?page=${nextPage}` : null;
+        const prevLink = hasPrevPage ? `http://${RAILWAY_PUBLIC_DOMAIN}:${config.port}/products?page=${prevPage}` : null;
+        const nextLink = hasNextPage ? `http://${RAILWAY_PUBLIC_DOMAIN}:${config.port}/products?page=${nextPage}` : null;
         res.render("products", {products, prevLink, nextLink, page, cartId, profileLink, cartLink});
     } catch (error) {
         req.logger.error(error);
@@ -38,10 +38,10 @@ export const renderPremiumDashboard = async (req, res) => {
         const { user } = req.session;
         const {limit, page, sort, query} = req.query;
         const products = await getProductsService(limit, page, sort, query);
-        const cartLink = `http://localhost:${config.port}/carts`
+        const cartLink = `http://${RAILWAY_PUBLIC_DOMAIN}:${config.port}/carts`
         const {prevPage, nextPage, hasPrevPage, hasNextPage} = products;
-        const prevLink = hasPrevPage ? `http://localhost:${config.port}/realtimeproducts?page=${prevPage}` : null;
-        const nextLink = hasNextPage ? `http://localhost:${config.port}/realtimeproducts?page=${nextPage}` : null;
+        const prevLink = hasPrevPage ? `http://${RAILWAY_PUBLIC_DOMAIN}:${config.port}/realtimeproducts?page=${prevPage}` : null;
+        const nextLink = hasNextPage ? `http://${RAILWAY_PUBLIC_DOMAIN}:${config.port}/realtimeproducts?page=${nextPage}` : null;
         res.render("realtimeproducts", {products, prevLink, nextLink, page, user, cartLink});
     } catch (error) {
         req.logger.error(error);
@@ -53,10 +53,10 @@ export const renderAdminDashboard = async (req, res) => {
         const { user } = req.session;
         const {limit, page, sort, query} = req.query;
         const products = await getProductsService(limit, page, sort, query);
-        const userList = `http://localhost:${config.port}/admindashboard/userlist`;
+        const userList = `http://${RAILWAY_PUBLIC_DOMAIN}:${config.port}/admindashboard/userlist`;
         const {prevPage, nextPage, hasPrevPage, hasNextPage} = products;
-        const prevLink = hasPrevPage ? `http://localhost:${config.port}/admindashboard?page=${prevPage}` : null;
-        const nextLink = hasNextPage ? `http://localhost:${config.port}/admindashboard?page=${nextPage}` : null;
+        const prevLink = hasPrevPage ? `http://${RAILWAY_PUBLIC_DOMAIN}:${config.port}/admindashboard?page=${prevPage}` : null;
+        const nextLink = hasNextPage ? `http://${RAILWAY_PUBLIC_DOMAIN}:${config.port}/admindashboard?page=${nextPage}` : null;
         res.render("admindashboard", {products, prevLink, nextLink, page, user, userList});
     } catch (error) {
         req.logger.error(error);
@@ -66,7 +66,7 @@ export const renderAdminDashboard = async (req, res) => {
 export const userList = async (req, res) => {
     try {
         const users = await getUsersService();
-        const dashboardLink = `http://localhost:${config.port}/admindashboard?page=1`       
+        const dashboardLink = `http://${RAILWAY_PUBLIC_DOMAIN}:${config.port}/admindashboard?page=1`       
         res.render("userlist", {user: users, dashboardLink});
     } catch (error) {
         req.logger.error(error);
@@ -82,7 +82,7 @@ export const renderProfile = async (req, res) => {
                 return true;
             };
         };
-        const dashboardLink = `http://localhost:${config.port}/products?page=1`;
+        const dashboardLink = `http://${RAILWAY_PUBLIC_DOMAIN}:${config.port}/products?page=1`;
         res.render("current", {user, dashboardLink, userId, isNotPremium});
     } catch (error) {
         req.logger.error(error);
@@ -94,7 +94,7 @@ export const renderCart = async (req, res) => {
         const cartId = req.user.cart;
         const email = req.user.email;
         const cart = await getCartService(cartId);
-        const dashboardLink = `http://localhost:${config.port}/products?page=1`;
+        const dashboardLink = `http://${RAILWAY_PUBLIC_DOMAIN}:${config.port}/products?page=1`;
         res.render("cart", {cart: cart, dashboardLink, email});
     } catch (error) {
         req.logger.error(error);

@@ -27,7 +27,6 @@ const initializePassport =  () => {
                     console.log("El usuario ya existe");
                     return done(null, false);
                 };
-
                 const cart = await cartModel.create({})
                 const newUser = {
                     first_name,
